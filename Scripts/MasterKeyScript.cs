@@ -18,7 +18,7 @@ namespace MasterKeycard.Scripts
             
             if (keycardDoors.Count == 0)
             {
-                MasterKeycardPlugin.LogWarning("未找到任何门卡门，主钥匙可能无法工作");
+                MasterKeycardPlugin.LogWarning("未找到任何门卡门");
                 return;
             }
             
@@ -51,7 +51,7 @@ namespace MasterKeycard.Scripts
             
             if (additionalKeysField == null)
             {
-                MasterKeycardPlugin.LogError("无法获取 _additionalKeys 字段，游戏版本可能已更新");
+                MasterKeycardPlugin.LogError("无法获取 _additionalKeys 字段");
                 return false;
             }
             
