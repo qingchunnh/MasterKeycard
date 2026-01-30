@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Reflection;
 using Comfort.Common;
 using EFT;
@@ -9,9 +8,6 @@ namespace MasterKeycard.Patches
 {
     internal class MasterKeyPatch : ModulePatch
     {
-        // 记录已处理的地图（每个游戏会话只初始化一次）
-        private static readonly HashSet<string> ProcessedLocations = new HashSet<string>();
-
         protected override MethodBase GetTargetMethod()
         {
             return typeof(GameWorld).GetMethod("OnGameStarted", 
@@ -31,16 +27,8 @@ namespace MasterKeycard.Patches
             // 获取当前地图名称
             string location = Singleton<GameWorld>.Instance.MainPlayer.Location;
             
-            // 检查是否已处理过此地图
-            if (ProcessedLocations.Contains(location))
-            {
-                MasterKeycardPlugin.LogInfo($"地图 {location} 已配置过主钥匙，跳过");
-                return;
-            }
-            
-            // 首次进入该地图，添加到已处理集合
-            ProcessedLocations.Add(location);
-            MasterKeycardPlugin.LogInfo($"首次进入地图 {location}，初始化主钥匙...");
+            // 每次进入地图都初始化主钥匙
+            MasterKeycardPlugin.LogInfo($"进入地图 {location}，初始化主钥匙...");
             
             // 创建并执行初始化
             var masterKeyScript = new MasterKeyScript();

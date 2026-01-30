@@ -12,7 +12,7 @@ namespace MasterKeycard.Scripts
         public void Initialize()
         {
             // 查找场景中所有 KeycardDoor
-            List<KeycardDoor> keycardDoors = FindObjectsOfType<KeycardDoor>().ToList();
+            List<KeycardDoor> keycardDoors = UnityEngine.Object.FindObjectsOfType<KeycardDoor>().ToList();
             
             MasterKeycardPlugin.LogInfo($"找到 {keycardDoors.Count} 个门卡门");
             
